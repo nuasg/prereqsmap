@@ -7,11 +7,11 @@ var mongoose   = require('mongoose');
 mongoose.connect('mongodb://node:node@ds053784.mongolab.com:53784/prereqsmap');
 var User = require('./models/user.js');
 var Major = require('./models/major.js');
-var Certficate= requre('./models/certficate.js');
-var class = require('./models/class.js');
-var degree = require('./models/degree.js');
-var minor = require('./models/minor.js');
-var requirement = require('./models/requirement.js');
+var Certificate= require('./models/certificate.js');
+var Class = require('./models/class.js');
+var Degree = require('./models/degree.js');
+var Minor = require('./models/minor.js');
+var Requirement = require('./models/requirement.js');
 
 // call the packages we need
 var express    = require('express');        // call express
@@ -95,15 +95,15 @@ router.route('/certficate')
 
 router.route('/class')
 	.post(function(req, res) {
-			var class = new Class();
-			class.name = req.body.name;
-			class.schedule = req.body.schedule;
-			class.professor= req.body.professor;
-			class.description= req.body.description;
-			class.prerequisites=req.body.prerequisites;
-			class.fulfillments=req.body.fulfillments;
+			var classs = new Class();
+			classs.name = req.body.name;
+			classs.schedule = req.body.schedule;
+			classs.professor= req.body.professor;
+			classs.description= req.body.description;
+			classs.prerequisites=req.body.prerequisites;
+			classs.fulfillments=req.body.fulfillments;
 
-		class.save(function(err) {
+		classs.save(function(err) {
 			if (err)
 				res.send(err);
 			res.json({message: 'Class created!'})
@@ -137,26 +137,6 @@ router.route('/requirement')
 			res.json({message: 'Requirement created!'})
 		})
 	})
-
-	//get all bears
-	/*
-    .get(function(req, res) {
-        User.find(function(err, users) {
-            if (err)
-                res.send(err);
-
-            res.json(user);
-        });
-    });
-
-    .get(function(req, res) {
-    Bear.findById(req.params.bear_id, function(err, bear) {
-            if (err)
-                res.send(err);
-            res.json(bear);
-        });
-    });
-    */
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
