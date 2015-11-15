@@ -36,7 +36,7 @@ router.get('/', function(req, res) {
 
 // more routes for our API will happen here
 //post user
-router.route('/user')
+router.route('/users')
 	.post(function(req, res) {
 			var user = new User();
 			//possibly change based on diff fields
@@ -51,11 +51,10 @@ router.route('/user')
 			if (err)
 				res.send(err);
 			res.json({message: 'User created!'});
-		});
-	});
+		})
+	})
 
 //get all users
-router.route('/users')
     .get(function(req, res) {
         User.find(function(err, users) {
             if (err)
@@ -75,7 +74,7 @@ router.route('/users/:user_id')
         });
     });
 
-router.route('/major')
+router.route('/majors')
 	.post(function(req, res) {
 			var major = new Major();
 			major.name = req.body.name;
@@ -88,21 +87,7 @@ router.route('/major')
 		})
 	})
 
-
-router.route('/major')
-	.post(function(req, res) {
-			var major = new Major();
-			major.name = req.body.name;
-			major.classes = req.body.classes;
-
-		major.save(function(err) {
-			if (err)
-				res.send(err);
-			res.json({message: 'Major created!'})
-		})
-	})
-
-router.route('/minor')
+router.route('/minors')
 	.post(function(req, res) {
 			var minor = new Minor();
 			minor.name = req.body.name;
@@ -115,7 +100,7 @@ router.route('/minor')
 		})
 	})
 
-router.route('/certficate')
+router.route('/certificates')
 	.post(function(req, res) {
 			var certficate = new Certficate();
 			certficate.name = req.body.name;
@@ -128,7 +113,7 @@ router.route('/certficate')
 		})
 	})
 
-router.route('/class')
+router.route('/classes')
 	.post(function(req, res) {
 			var classs = new Class();
 			classs.name = req.body.name;
@@ -145,7 +130,7 @@ router.route('/class')
 		})
 	})
 
-router.route('/degree')
+router.route('/degrees')
 	.post(function(req, res) {
 			var degree = new Degree();
 			degree.name = req.body.name;
@@ -160,7 +145,7 @@ router.route('/degree')
 		})
 	})
 
-router.route('/requirement')
+router.route('/requirements')
 	.post(function(req, res) {
 			var requirement = new Requirement();
 			requirement.name = req.body.name;
