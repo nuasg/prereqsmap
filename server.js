@@ -5,6 +5,8 @@
 
 var mongoose   = require('mongoose');
 mongoose.connect('mongodb://node:node@ds053784.mongolab.com:53784/prereqsmap');
+var User = require('./models/user.js');
+var Major = require('./models/major.js');
 
 // call the packages we need
 var express    = require('express');        // call express
@@ -29,20 +31,13 @@ router.get('/', function(req, res) {
 
 // more routes for our API will happen here
 
-// REGISTER OUR ROUTES -------------------------------
-// all of our routes will be prefixed with /api
-app.use('/api', router);
-
-// START THE SERVER
-// =============================================================================
-app.listen(port);
-console.log('Magic happens on port ' + port);
-
 router.route('/user')
 	.post(function(req, res) {
 			var user = new User();
 			//possibly change based on diff fields
-			user.major = req.body.major;
+			user.majors = req.body.majors;
+			user.minors = req.body.minors;
+			user.certificates = req.body.certificates;
 			user.degree = req.body.degree;
 			user.classes = req.body.classes;
 			user.name = req.body.name;
@@ -53,6 +48,19 @@ router.route('/user')
 			res.json({message: 'User created!'});
 		});
 	});
+
+router.route('/major')
+	.post(function(req, res) {
+			var major = new Major();
+			major.name = req.body.name;
+			major.classes = req.body.classes;
+
+		major.save(function(err) {
+			if (err)
+				res.send(err);
+			res.json({message: 'Major created!'})
+		})
+	})
 
 	//get all bears
 	/*
@@ -73,3 +81,12 @@ router.route('/user')
         });
     });
     */
+
+// REGISTER OUR ROUTES -------------------------------
+// all of our routes will be prefixed with /api
+app.use('/api', router);
+
+// START THE SERVER
+// =============================================================================
+app.listen(port);
+console.log('Magic happens on port ' + port);
