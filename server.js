@@ -7,6 +7,11 @@ var mongoose   = require('mongoose');
 mongoose.connect('mongodb://node:node@ds053784.mongolab.com:53784/prereqsmap');
 var User = require('./models/user.js');
 var Major = require('./models/major.js');
+var Certficate= requre('./models/certficate.js');
+var class = require('./models/class.js');
+var degree = require('./models/degree.js');
+var minor = require('./models/minor.js');
+var requirement = require('./models/requirement.js');
 
 // call the packages we need
 var express    = require('express');        // call express
@@ -59,6 +64,77 @@ router.route('/major')
 			if (err)
 				res.send(err);
 			res.json({message: 'Major created!'})
+		})
+	})
+
+router.route('/minor')
+	.post(function(req, res) {
+			var minor = new Minor();
+			minor.name = req.body.name;
+			minor.classes = req.body.classes;
+
+		minor.save(function(err) {
+			if (err)
+				res.send(err);
+			res.json({message: 'Minor created!'})
+		})
+	})
+
+router.route('/certficate')
+	.post(function(req, res) {
+			var certficate = new Certficate();
+			certficate.name = req.body.name;
+			certficate.classes = req.body.classes;
+
+		certficate.save(function(err) {
+			if (err)
+				res.send(err);
+			res.json({message: 'Certficate created!'})
+		})
+	})
+
+router.route('/class')
+	.post(function(req, res) {
+			var class = new Class();
+			class.name = req.body.name;
+			class.schedule = req.body.schedule;
+			class.professor= req.body.professor;
+			class.description= req.body.description;
+			class.prerequisites=req.body.prerequisites;
+			class.fulfillments=req.body.fulfillments;
+
+		class.save(function(err) {
+			if (err)
+				res.send(err);
+			res.json({message: 'Class created!'})
+		})
+	})
+
+router.route('/degree')
+	.post(function(req, res) {
+			var degree = new Degree();
+			degree.name = req.body.name;
+			degree.school = req.body.school;
+			degree.major = req.body.major;
+			degree.requirements = req.body.requirements;
+
+		degree.save(function(err) {
+			if (err)
+				res.send(err);
+			res.json({message: 'Degree created!'})
+		})
+	})
+
+router.route('/requirement')
+	.post(function(req, res) {
+			var requirement = new Requirement();
+			requirement.name = req.body.name;
+			requirement.classes = req.body.classes;
+
+		requirement.save(function(err) {
+			if (err)
+				res.send(err);
+			res.json({message: 'Requirement created!'})
 		})
 	})
 
