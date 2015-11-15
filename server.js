@@ -37,3 +37,39 @@ app.use('/api', router);
 // =============================================================================
 app.listen(port);
 console.log('Magic happens on port ' + port);
+
+router.route('/user')
+	.post(function(req, res) {
+			var user = new User();
+			//possibly change based on diff fields
+			user.major = req.body.major;
+			user.degree = req.body.degree;
+			user.classes = req.body.classes;
+			user.name = req.body.name;
+
+		user.save(function(err) {
+			if (err)
+				res.send(err);
+			res.json({message: 'User created!'});
+		});
+	});
+
+	//get all bears
+	/*
+    .get(function(req, res) {
+        User.find(function(err, users) {
+            if (err)
+                res.send(err);
+
+            res.json(user);
+        });
+    });
+
+    .get(function(req, res) {
+    Bear.findById(req.params.bear_id, function(err, bear) {
+            if (err)
+                res.send(err);
+            res.json(bear);
+        });
+    });
+    */
