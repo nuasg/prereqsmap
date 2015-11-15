@@ -35,7 +35,7 @@ router.get('/', function(req, res) {
 });
 
 // more routes for our API will happen here
-
+//post user
 router.route('/user')
 	.post(function(req, res) {
 			var user = new User();
@@ -53,6 +53,41 @@ router.route('/user')
 			res.json({message: 'User created!'});
 		});
 	});
+
+//get all users
+router.route('/users')
+    .get(function(req, res) {
+        User.find(function(err, users) {
+            if (err)
+                res.send(err);
+            res.json(users);
+        });
+    });
+
+
+//get one user
+router.route('/users/:user_id')
+    .get(function(req, res) {
+    User.findById(req.params.user_id, function(err, user) {
+            if (err)
+                res.send(err);
+            res.json(user);
+        });
+    });
+
+router.route('/major')
+	.post(function(req, res) {
+			var major = new Major();
+			major.name = req.body.name;
+			major.classes = req.body.classes;
+
+		major.save(function(err) {
+			if (err)
+				res.send(err);
+			res.json({message: 'Major created!'})
+		})
+	})
+
 
 router.route('/major')
 	.post(function(req, res) {
